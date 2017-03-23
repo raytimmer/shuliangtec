@@ -6,11 +6,13 @@
         <li v-for="value in items.children">
           <a :value="value.id" v-text="value.name" @click.stop="menuClick(value)"></a>
           <transition
-            name="animated"
-            enter-active-class="animated slideInDown"
-            leave-active-class="animated slideOutUp"
+            name="slide"
+            enter-class="slide-enter"
+            leave-class="slide-leave"
+            enter-active-class="slide-enter-active"
+            leave-active-class="slide-leave-active"
           >
-          <ul class="erji " style="overflow: hidden; padding-top: 0px; padding-bottom: 0px; display: none;" v-show="value.leaf">
+          <ul class="erji " v-show="value.leaf">
             <li v-for="value2 in value.children">
               <a :value="value2.id" v-text="value2.name" @click.stop="menuClick(value2)"></a>
               <ul class="sanji" v-show="value2.leaf">
@@ -64,7 +66,37 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .slide-enter,.slide-enter-active{
+  -moz-transform: scaleY(1);
+  -ms-transform: scaleY(1);
+  -o-transform: scaleY(1);
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+  animation: showAnimation 0.5s ease-in-out;
+  -moz-animation: showAnimation 0.5s ease-in-out;
+  -webkit-animation: showAnimation 0.5s ease-in-out;
+  -moz-transition: max-height 1s ease-in-out;
+  -o-transition: max-height 1s ease-in-out;
+  -webkit-transition: max-height 1s ease-in-out;
+  transition: max-height 1s ease-in-out;
+}
+  .slide-leave,.slide-leave-active {
+  -moz-transform: scaleY(0);
+  -ms-transform: scaleY(0);
+  -o-transform: scaleY(0);
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+  animation: hideAnimation 0.4s ease-out;
+  -moz-animation: hideAnimation 0.4s ease-out;
+  -webkit-animation: hideAnimation 0.4s ease-out;
+  -moz-transition: max-height 0.6s ease-out;
+  -o-transition: max-height 0.6s ease-out;
+  -webkit-transition: max-height 0.6s ease-out;
+  transition: max-height 0.6s ease-out;
+}
+.slide-enter, .slide-leave-active {
+  /*opacity: 0*/
+}
 .list{
   width: 270px;
   margin:0px auto 0 auto;
